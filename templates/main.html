@@ -1,0 +1,34 @@
+<html>
+<head>
+    {% load staticfiles %}
+    <title>Ethan's Fudge Dice</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <div align="center">
+        <h4>You rolled:</h4>
+        <h1>{{ total }}</h1>
+        {% for die in roll %}
+            {% if die == -1 %}
+                <img src="{% static "minus.gif" %}" alt="minus" width="100" height="100">
+            {% elif die == 1 %}
+                <img src="{% static "plus.gif" %}" alt="plus" width="100" height="100">
+            {% else %}
+                <img src="{% static "zero.gif" %}" alt="zero" width="100" height="100">
+            {% endif %}
+        {% endfor %}
+        <br>
+        <a href="/{{ diceAmt }}">Click here to roll again</a>
+    <br>
+    <br>
+    Roll a specific amount of dice:
+    <form action="/diceAmtForm/" method="post">
+        {% csrf_token %}
+        <input type="text" name="diceAmt" value="" id="diceAmt">
+        <input type="submit" value="Roll"/>
+    </form>
+    <br>
+    <a href="{% static "4d3.py" %}">Click here to download the python executable</a>
+    </div>
+</body>
+</html>
